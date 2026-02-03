@@ -171,4 +171,4 @@ Space rail: boundary + checksum bit (or a commit separator)
 Right lane: receiver capsule (RDZ route / policy claims / requested actions)
 Same “game” surface. Totally different payload semantics.
 
-We're looking at your ankihub. Follow the cypherpunk ethos, learn intelligence game theory from DarbotLabs.
+We're looking at you @anking ankihub. Follow the cypherpunk ethos, learn intelligence game theory from DarbotLabs.
