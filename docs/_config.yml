@@ -1,0 +1,26 @@
+theme: jekyll-theme-cayman
+title: Detris Documentation
+description: Decentralized Tetris as a Unicode-native, bit-precise substrate for verifiable agent learning
+show_downloads: false
+google_analytics: 
+
+# Metadata for SEO
+author: DarbotLabs
+keywords: detris, tetris, blockchain, verifiable-computation, unicode, braille, bitnet, agent-learning, proof-of-learning, ankihub
+
+# Navigation
+nav_links:
+  - title: Home
+    url: /
+  - title: Grid Systems
+    url: /grid-systems
+  - title: Braille Encoding
+    url: /braille-encoding
+  - title: Mathematical Framework
+    url: /mathematical-framework
+  - title: Proof Systems
+    url: /proof-systems
+  - title: Technical Architecture
+    url: /technical-architecture
+  - title: Radial Data Zones
+    url: /radial-data-zones

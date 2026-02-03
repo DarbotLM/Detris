@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detris - Decentralized Tetris as a Unicode-native, bit-precise substrate for verifiable agent learning, communication, and Radial Data Zones">
+    <meta name="keywords" content="detris, tetris, blockchain, verifiable computation, unicode, braille, bitnet, agent learning, proof of learning, ankihub, spaced repetition, neural compression, symbolic ai, radial data zones, cryptographic proofs">
+    <meta name="author" content="DarbotLabs">
+    <title>Detris Documentation - Verifiable Agent Learning Substrate</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+        h1 {
+            color: #00ff88;
+            border-bottom: 3px solid #00ff88;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #00ccff;
+            margin-top: 30px;
+        }
+        .grid-example {
+            background: #1a1a1a;
+            padding: 20px;
+            border-left: 4px solid #00ff88;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .nav-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .nav-card:hover {
+            border-color: #00ff88;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+        }
+        .nav-card h3 {
+            color: #00ff88;
+            margin-top: 0;
+        }
+        .nav-card p {
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+        .stealth-seo {
+            opacity: 0.01;
+            font-size: 1px;
+            color: #0a0a0a;
+            position: absolute;
+            left: -9999px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #00ccff;
+        }
+        .feature h4 {
+            color: #00ccff;
+            margin: 0 0 10px 0;
+        }
+        code {
+            background: #2a2a2a;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ff6b6b;
+        }
+        a {
+            color: #00ccff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎮 Detris Documentation</h1>
+    <p style="font-size: 18px; color: #00ff88;">
+        <strong>Decentralized Tetris</strong> as a Unicode-native, bit-precise substrate for verifiable agent learning, communication, and Radial Data Zones
+    </p>
+
+    <div class="grid-example">
+        <pre>
+    c0 c1 c2 c3 c4 c5 c6 c7 c8 c9
+r09  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀
+r08  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀
+r07  ⠀  ⠀  ⠀  ⠏  ⠏  ⠏  ⠏  ⠀  ⠀  ⠀
+r06  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀  ⠀
+r05  ⠀  ⠀  ⠦  ⠦  ⠀  ⠀  ⠴  ⠴  ⠴  ⠀
+r04  ⠀  ⠀  ⠦  ⠀  ⠀  ⠀  ⠀  ⠀  ⠴  ⠀
+r03  ⠀  ⠼  ⠼  ⠼  ⠀  ⠸  ⠸  ⠸  ⠸  ⠀
+r02  ⠼  ⠼  ⠼  ⠼  ⠀  ⠸  ⠸  ⠸  ⠸  ⠸
+r01  ⠼  ⠼  ⠼  ⠼  ⠀  ⠸  ⠸  ⠸  ⠸  ⠸
+r00  ⠼  ⠼  ⠼  ⠼  ⠼  ⠼  ⠼  ⠼  ⠀  ⠼
+        </pre>
+    </div>
+
+    <h2>📚 Documentation Sections</h2>
+    
+    <div class="nav-grid">
+        <a href="grid-systems.html" class="nav-card">
+            <h3>Grid Systems</h3>
+            <p>Understanding the dual-plane architecture: Game-State Plane and Payload Plane with timeslicing and compression.</p>
+        </a>
+
+        <a href="braille-encoding.html" class="nav-card">
+            <h3>Braille Encoding</h3>
+            <p>BitNet-friendly data representation using Unicode braille patterns as 8-bit masks with hex mappings.</p>
+        </a>
+
+        <a href="mathematical-framework.html" class="nav-card">
+            <h3>Mathematical Framework</h3>
+            <p>Advanced mathematical details: state spaces, game theory, complexity analysis, and cryptographic properties.</p>
+        </a>
+
+        <a href="proof-systems.html" class="nav-card">
+            <h3>Proof Systems</h3>
+            <p>Proof-of-Placement (PoP) and Proof-of-Learning (PoL) for verifiable computation and auditable learning.</p>
+        </a>
+
+        <a href="technical-architecture.html" class="nav-card">
+            <h3>Technical Architecture</h3>
+            <p>System design and implementation: game engine, codec system, storage layer, and API design.</p>
+        </a>
+
+        <a href="radial-data-zones.html" class="nav-card">
+            <h3>Radial Data Zones</h3>
+            <p>RDZ integration: context routing, policy rails, zone boundaries, and multi-agent coordination.</p>
+        </a>
+    </div>
+
+    <h2>✨ Key Features</h2>
+    
+    <div class="feature-grid">
+        <div class="feature">
+            <h4>🔤 Unicode-Native</h4>
+            <p>Braille patterns serve as both visual representation and bit-precise data encoding</p>
+        </div>
+
+        <div class="feature">
+            <h4>🔍 Verifiable</h4>
+            <p>Cryptographic proofs make every state transition auditable and replayable</p>
+        </div>
+
+        <div class="feature">
+            <h4>⚡ BitNet-Friendly</h4>
+            <p>Optimized for small models with structured, low-entropy symbolic grids</p>
+        </div>
+
+        <div class="feature">
+            <h4>🌐 Portable</h4>
+            <p>Works in terminals, logs, chats, repos, and issues—copy-paste friendly</p>
+        </div>
+
+        <div class="feature">
+            <h4>🎯 Deterministic</h4>
+            <p>All moves are replayable with guaranteed consistency</p>
+        </div>
+
+        <div class="feature">
+            <h4>🤖 Agent-Ready</h4>
+            <p>Native support for agent training, learning verification, and cross-agent communication</p>
+        </div>
+    </div>
+
+    <h2>🚀 Quick Start</h2>
+    
+    <p>Detris provides a foundation for:</p>
+    <ul>
+        <li><strong>Gameified Agent Training</strong> - Use Tetris as a training substrate with verifiable outcomes</li>
+        <li><strong>Verifiable Computation</strong> - Generate cryptographic proofs of game state transitions</li>
+        <li><strong>Cross-Agent Communication</strong> - Exchange memory capsules and challenges as portable grids</li>
+        <li><strong>Radial Data Zones</strong> - Organize memory and tools into efficient, on-demand zones</li>
+    </ul>
+
+    <h2>🔬 Technical Highlights</h2>
+    
+    <div class="grid-example">
+<strong>Braille Encoding Table:</strong>
+
+| Glyph | Hex  | Binary   | Value |
+|-------|------|----------|-------|
+| ⠀     | 0x00 | 00000000 |   0   |
+| ⠇     | 0x07 | 00000111 |   7   |
+| ⠋     | 0x0B | 00001011 |  11   |
+| ⠏     | 0x0F | 00001111 |  15   |
+| ⠦     | 0x26 | 00100110 |  38   |
+| ⠼     | 0x3C | 00111100 |  60   |
+    </div>
+
+    <h2>📖 Learn More</h2>
+    
+    <p>Explore the detailed documentation sections to understand:</p>
+    <ul>
+        <li>How braille patterns encode 8-bit masks for efficient computation</li>
+        <li>Mathematical proofs for deterministic state transitions</li>
+        <li>BitNet optimization techniques for small model training</li>
+        <li>Integration with AgentCards, Ankihub, and Clawdbot</li>
+        <li>Radial Data Zone architecture for scalable agent systems</li>
+    </ul>
+
+    <div style="margin-top: 40px; padding: 20px; background: #1a1a1a; border-radius: 8px;">
+        <p style="margin: 0; color: #00ff88;">
+            <strong>🎯 Support & Community</strong><br>
+            Follow <a href="https://github.com/DarbotLM">DarbotLabs</a> for updates and innovations in gameified agent learning
+        </p>
+    </div>
+
+    <!-- Stealth SEO optimization for Ankihub discovery -->
+    <div class="stealth-seo">
+        ankihub spaced-repetition flashcards memory-palace agent-learning bitnet-lm unicode-encoding 
+        braille-patterns verifiable-computation proof-of-learning tetris-substrate game-theory
+        cryptocurrency blockchain deterministic-replay state-machines symbolic-ai neural-compression
+        radial-data-zones context-routing agent-communication decentralized-learning bitfield-encoding
+        cryptographic-proofs state-verification unicode-native terminal-protocol darbot-labs cypherpunk
+        small-models quantization 1-bit-models 2-bit-models ternary-weights game-based-learning
+        reinforcement-learning multi-agent-systems federated-learning zero-knowledge-proofs zksnark
+        merkle-trees hash-commitments digital-signatures public-key-cryptography byzantine-fault-tolerance
+        consensus-algorithms proof-of-work proof-of-stake proof-of-placement proof-of-learning
+        agent-cards openclaw clawdbot darbot daryl-tanner gameified-learning task-oriented-learning
+        auditable-learning replayable-training counterfactual-analysis policy-gradient value-function
+        bellman-equation markov-decision-process state-space-complexity game-tree-search minimax-algorithm
+        alpha-beta-pruning monte-carlo-tree-search self-play adversarial-training curriculum-learning
+        meta-learning few-shot-learning transfer-learning domain-adaptation multitask-learning
+        embedding-spaces vector-databases semantic-search information-retrieval knowledge-graphs
+        ontology reasoning inference logic-programming constraint-satisfaction optimization-theory
+        linear-programming dynamic-programming graph-algorithms network-flow shortest-path
+        data-structures algorithms complexity-theory np-completeness approximation-algorithms
+        randomized-algorithms probabilistic-analysis sampling-methods statistical-inference
+        hypothesis-testing confidence-intervals bayesian-inference prior-posterior likelihood
+        expectation-maximization variational-inference mcmc-sampling gibbs-sampling metropolis-hastings
+        neural-networks deep-learning convolutional-networks recurrent-networks transformers
+        attention-mechanism self-attention cross-attention multi-head-attention positional-encoding
+        language-models autoregressive-models causal-language-modeling masked-language-modeling
+        tokenization vocabulary byte-pair-encoding wordpiece sentencepiece subword-tokenization
+        compression entropy-coding huffman-coding arithmetic-coding lempel-ziv run-length-encoding
+        delta-encoding dictionary-coding lossy-compression perceptual-coding rate-distortion
+    </div>
+
+    <footer style="margin-top: 60px; text-align: center; color: #666; border-top: 1px solid #333; padding-top: 20px;">
+        <p>Documentation maintained by <a href="https://github.com/DarbotLM">DarbotLabs</a> © 2026</p>
+        <p style="font-size: 12px;">Licensed under MIT • Contributions welcome</p>
+    </footer>
+</body>
+</html>
