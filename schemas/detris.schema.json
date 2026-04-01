@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://darbotlabs.com/schemas/detris.schema.json",
+  "title": "Detris Schema",
+  "description": "Schema definitions for Detris verifiable computation substrate",
+  "definitions": {
+    "grid": {
+      "type": "object",
+      "description": "Unicode braille grid representation",
+      "properties": {
+        "rows": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 10
+        },
+        "cols": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 10
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[⠀-⣿]$"
+            }
+          }
+        }
+      },
+      "required": ["rows", "cols", "data"]
+    },
+    "piece": {
+      "type": "object",
+      "description": "Tetromino piece",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["I", "O", "T", "S", "Z", "J", "L"]
+        },
+        "rotation": {
+          "type": "integer",
+          "enum": [0, 90, 180, 270]
+        },
+        "glyph": {
+          "type": "string",
+          "pattern": "^[⠀-⣿]$"
+        },
+        "shape": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "integer" },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      },
+      "required": ["type", "rotation"]
+    },
+    "action": {
+      "type": "object",
+      "description": "Game action",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["LEFT", "RIGHT", "DOWN", "ROTATE_CW", "ROTATE_CCW", "DROP", "HOLD"]
+        },
+        "data": {
+          "type": "object"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["type"]
+    },
+    "gameState": {
+      "type": "object",
+      "description": "Complete game state",
+      "properties": {
+        "id": { "type": "string" },
+        "grid": { "$ref": "#/definitions/grid" },
+        "currentPiece": { "$ref": "#/definitions/piece" },
+        "piecePosition": {
+          "type": "object",
+          "properties": {
+            "r": { "type": "integer" },
+            "c": { "type": "integer" }
+          },
+          "required": ["r", "c"]
+        },
+        "nextPiece": { "$ref": "#/definitions/piece" },
+        "heldPiece": { "$ref": "#/definitions/piece" },
+        "score": { "type": "integer", "minimum": 0 },
+        "level": { "type": "integer", "minimum": 1 },
+        "linesCleared": { "type": "integer", "minimum": 0 },
+        "moveCount": { "type": "integer", "minimum": 0 },
+        "seed": { "type": "integer" },
+        "gameOver": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "grid", "score", "seed"]
+    },
+    "witness": {
+      "type": "object",
+      "description": "PoP witness data",
+      "properties": {
+        "changedCells": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "r": { "type": "integer" },
+              "c": { "type": "integer" },
+              "prev": { "type": "string" },
+              "next": { "type": "string" }
+            }
+          }
+        },
+        "clearedLines": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "pieceType": { "type": "string" },
+        "piecePosition": {
+          "type": "object",
+          "properties": {
+            "r": { "type": "integer" },
+            "c": { "type": "integer" }
+          }
+        },
+        "scoreChange": { "type": "integer" }
+      }
+    },
+    "pop": {
+      "type": "object",
+      "description": "Proof-of-Placement",
+      "properties": {
+        "id": { "type": "string" },
+        "prevCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "action": { "$ref": "#/definitions/action" },
+        "nextCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "witness": { "$ref": "#/definitions/witness" },
+        "signature": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["prevCommit", "action", "nextCommit"]
+    },
+    "popChain": {
+      "type": "object",
+      "description": "Chain of Proof-of-Placements",
+      "properties": {
+        "pops": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/pop" }
+        },
+        "initialCommit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": ["pops", "initialCommit"]
+    },
+    "challenge": {
+      "type": "object",
+      "description": "Learning challenge definition",
+      "properties": {
+        "id": { "type": "string" },
+        "seed": { "type": "integer" },
+        "difficulty": { "type": "number", "minimum": 0, "maximum": 10 },
+        "initialState": { "$ref": "#/definitions/gameState" },
+        "maxMoves": { "type": "integer", "minimum": 1 },
+        "targetScore": { "type": "integer", "minimum": 0 },
+        "constraints": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["seed", "difficulty", "initialState"]
+    },
+    "improvement": {
+      "type": "object",
+      "description": "Learning improvement metrics",
+      "properties": {
+        "slope": { "type": "number" },
+        "improvement": { "type": "number" },
+        "percentImprovement": { "type": "number" },
+        "initial": { "type": "number" },
+        "final": { "type": "number" },
+        "best": { "type": "number" },
+        "mean": { "type": "number" },
+        "attemptCount": { "type": "integer" }
+      }
+    },
+    "pol": {
+      "type": "object",
+      "description": "Proof-of-Learning",
+      "properties": {
+        "id": { "type": "string" },
+        "agentId": { "type": "string" },
+        "challenge": { "$ref": "#/definitions/challenge" },
+        "attempts": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/popChain" }
+        },
+        "scores": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "improvement": { "$ref": "#/definitions/improvement" },
+        "signature": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["agentId", "challenge", "attempts", "scores", "improvement"]
+    },
+    "radialZone": {
+      "type": "object",
+      "description": "Radial data zone for grid encoding",
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["IDENTITY", "MESSAGE", "SIGNATURE", "TIMESTAMP", "METADATA", "CHECKSUM"]
+        },
+        "centerRow": { "type": "integer", "minimum": 0 },
+        "centerCol": { "type": "integer", "minimum": 0 },
+        "radius": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["type", "centerRow", "centerCol", "radius"]
+    },
+    "zoneLayout": {
+      "type": "object",
+      "description": "Layout of multiple radial zones",
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["STANDARD", "COMPACT", "REDUNDANT"]
+        },
+        "zones": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/radialZone" }
+        },
+        "gridRows": { "type": "integer", "minimum": 1 },
+        "gridCols": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["zones"]
+    },
+    "encodedMessage": {
+      "type": "object",
+      "description": "Message encoded in grid",
+      "properties": {
+        "id": { "type": "string" },
+        "agentId": { "type": "string" },
+        "content": { "type": "string" },
+        "grid": { "$ref": "#/definitions/grid" },
+        "gridHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["agentId", "content", "grid", "gridHash"]
+    },
+    "sessionRecording": {
+      "type": "object",
+      "description": "Complete session recording",
+      "properties": {
+        "id": { "type": "string" },
+        "seed": { "type": "integer" },
+        "popChain": { "$ref": "#/definitions/popChain" },
+        "finalState": { "$ref": "#/definitions/gameState" },
+        "moveCount": { "type": "integer" },
+        "score": { "type": "integer" }
+      },
+      "required": ["id", "seed", "popChain"]
+    }
+  }
+}
